@@ -1,0 +1,30 @@
+1.
+ Select * from "Products";
+2.
+ Select prod, name from "ecommerce.products";
+3.
+ Select id, name, price from "ecommerce.products";
+4.
+ Select distinct vend_id from "products";
+5.
+ Select "country_code" from "ecommerce.merchant" limit 15;
+6.
+ Select user_id from "ecommerce.orders" order by user_id ASC;
+7.
+ Select id, country_code, start_date from "ecommerce.merchant_periods" order by start_date DESC;
+8.
+ Select id,name,price from "ecommerce.products order by price DESC, name;
+9.
+ Select concat("vend_name", ' ', "vend_count. ry") from "Vendors";
+10.
+ Select vend_name, vend_country, concat("vend_name", ' ', "vend_country") as "Наименование⁰ (место нахождения)" from vendors;
+11.
+ Select is, quantity,price,(price * quantity) as "exspanded_price" from "ecommerce.orders";
+12.
+ Select first_name,p.middle_name, p.last_name,(p.first_name|| ' ' || p.middle_name || ' ' || p.last_name) as "ФИО", lenght(p.first_name || ' ' || p.middle_name || ' ' || p.last_name) as "Кол-во символов" from "person";
+13.
+ Select upper(concat(first_name, middle_name,last_name)) as "ФИО" from person;
+14.
+ Select ltrim(p.prod, 'T'), p.prod_desc from "Products";
+15.
+ Select p.prod.desc, ltrim(p.prod_desc, 'jet') as "Результат" from "Products"; 

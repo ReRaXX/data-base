@@ -1,0 +1,290 @@
+-- 1 ЧАСТЬ
+
+--Задача 1: выборка всех данных из таблицы Products
+select * from "Products" p ;
+
+--Задача 2: выборка данных из столбца "Наименование продукта" из таблицы "Продукты"
+select prod_name from "Products" p;
+
+--Задача 3: выборка данных Код продукта, Наименование продукта, Стоимость продукта из таблицы Продукты
+select prod_id, prod_name, prod_price from "Products" p ;
+
+--Задача 4: выборка уникальных данных из vend_id таблицы Продукты
+select distinct vend_id from "Products" p ;
+
+-- Задача 5 произвести выборку первых пять строк из столбца наименование таблицы продукта
+select "prod_name"
+from "Products" p limit 5
+
+-- Задача 6 произвести выборку первых пять строк из столбца наименования, таблицы-продукты, начиная с пятой позиции
+select  prod_name from "Products" p  limit 5 offset 5;
+
+-- Задача 7 произвести выборку всех строк из столбца "Наименование продукты" таблицы "Продукты", начиная с 5 позиции
+select p.prod_name from "Products" p
+offset 5;
+
+-- Задача 8 произвести выборку данных из столбца "Наименование продукта" таблицы "Продукты" и осуществить сортировку по возрастанию
+select p.prod_name from "Products" p order by p.prod_name;
+
+-- Задача 9 произвести выборку данных из стобцов: "Код продукта", "Наименование продукта", "Цена продукта" таблицы "Продукт" и осуществить сортировку по возрастания: по имени и цене
+select prod_id, prod_name, prod_price from "Products" p order by prod_name, prod_price;
+
+--Задача 10 произвести выборку данных из столбцов "Код продукта", "Наименование продукта", "Цена продукта" таблицы "Продукт" и осуществить сортировку по убиванию по цене
+select p.prod_id, p.prod_name, p.prod_price
+from "Products" p
+order by p.prod_price desc;
+
+--Задача 11 произвести выборку данных из столбцов "Код продукта", "Наименование продукта", "Цена продукта" таблицы "Продукт" и осуществить сортировку по убиванию по цене и по возрастанию имени
+select p.prod_id, p.prod_name, p.prod_price
+from "Products" p
+order by p.prod_name asc, p.prod_price desc;
+
+--Задача 12 произвести выборку данных из таблицы vendors, в результате которой информация vend_name(поставщики) в vend_country (страна поставщиков), выводится в одном поле. Решить 2-мя способами
+select concat(vend_name ,' ', vend_country) from "Vendors" v 
+
+--Задача 12 (2 способ)
+select "vend_name" || ' ' || "vend_country"
+from "Vendors" v ;
+
+--Задача 13 произвести выборку данных из таблицы vendors , в результате которой информация vend_name(поставщики) и vend_country(страна поставщиков) выводиться в одном поле. Столбцу выборки присвоить имя "Наименование (место нахождения)" решить 2-мя способами
+select concat("vend_name", ' ', "vend_country") as "Наименование (место нахождения)"
+from "Vendors" v ;
+
+--Задача13(2 способ)
+select "vend_name" || ' ' || "vend_country" as "Наименование (место нахождения)"
+from "Vendors" v ;
+
+--Задача 14 произвести выбор данных из столбцов прод айди, квинтити, айтем прайс из таблицы ордементс
+select "prod_id", "quantity", "item_price"
+from "Orderitems" o ;
+
+--Задача 15 произвести выборку из столбцов prod_id, quantity, item_price таблицы orderitems, рассчитать итоговую цену, умножив цену за штуку на заказанное кол-во каждого товара. Присвоить вычисляемому столбцу имя "expanded_price"
+select prod_id, quantity * item_price as "expanded_price" from "Orderitems" o ;
+
+--Задача 16 Произвести выборку данных из таблицы vendors, в результатах которой информация vend_name(поставщики) в vend_country(страна поставщика) вводится в одном поле. Столбцу выборки присвоить имя "Наименование (место нахождения)". В отдельном столбце с названием "Кол-во символов" вывести количество символов в строке в столбце "Наименование (место находения)". Решить 3-мя способами
+select concat(vend_name, ' ', vend_country) as "Наименование (место положение)",
+char_length(concat(vend_name, ' ', vend_country)) as "Количество символов"
+from "Vendors" v;
+
+--Задача 16(2 способ)
+select concat(vend_name, ' ', vend_country) as "Наименование (место положение)",
+character_length(concat(vend_name, ' ', vend_country)) as "Количество символов"
+from "Vendors" v;
+
+--Задача 16(3 способ)
+select concat(vend_name, ' ', vend_country) as "Наименование (место положение)",
+length(concat(vend_name, ' ', vend_country)) as "Количество символов"
+from "Vendors" v;
+
+--Задача 17 произвести выборку данных из таблицы productnotes, в результате которой в столбце note_text первая буква каждого слова приведена к верхнему регистру
+select concat(upper(substring(note_text, 1,1)), lower(substring(note_text, 2)))
+from "Productnotes" p ;
+
+--Задача18 Произвести выборку данных из таблицы products, в результате которой в столбце prod_id все слова приведены к нижнему регистру
+select lower(prod_id) as prod_id
+from "Productnotes" p ;
+
+--Задача 19 произвести выборку данных из таблицы vendors, в результате которой информация vend_name(поставщики) и vend_country(страна поставщиков) выводится в одном поле. Столбцу выборки присвоить имя "Наименование (место нахождения)" В отдельном столбце с названием "Регистр" вывести информаци vend_name(поставщики) и vend_country(страна поставщиков) в одном поле. Решить 2-мя способами
+select vend_name || ' ' || vend_country as "Регистр"
+from "Vendors" v
+
+--Задача 20 предусловие: Вставить строку в таблицу products, в столбец prod_desc длбавить данные в которых в начале и в конце присутствуют пробелы. Осуществить выборку данных из столбцы (не дописал)
+select "prod_desc", trim(rtrim(prod_desc)) as "Результат"
+from "Products" p 
+limit 1;
+
+--Задача 21: выборка из prod_desc из products с названием Результат в которой prod_desc без пробелов в конце строки
+select prod_desc ,translate(prod_desc, ' ', '') as "Результат"
+from "Products" p;
+
+--Задача 21(2 cпособ)
+select prod_desc, trim(trailing ' ' from prod_desc) as "Результат" 
+from "Products" p;
+
+-- 2 ЧАСТЬ
+
+--Задача 22:
+select prod_desc,ltrim(prod_desc, 'T') as "Результат"
+from "Products" p ;
+
+--Задача 23
+select prod_desc,ltrim(prod_desc, 'Jet') as "Результат"
+from "Products" p ;
+
+--Задача 24
+select prod_desc,ltrim(prod_desc, 'Jet, t, S, . ') as "Результат"
+from "Products" p ;
+
+--Задача 24(2 cпособ)
+select prod_desc, ltrim(prod_desc,'J,e,t, t, S, .') as "Результат" 
+from "Products" p ;
+
+--Задача 25
+select prod_desc,rtrim(prod_desc, 'e') as "Результат"
+from "Products" p ;
+
+--Задача 26
+select prod_desc, rtrim(prod_desc,'оок') as "Результат" 
+from "Products" p ;
+
+--Задача 26(2 cпособ)
+select prod_desc, btrim(prod_desc,'оок') as "Результат" 
+from "Products" p ;
+
+--Задача 27
+select prod_desc, rtrim(prod_desc,'e,l,k,g') as "Результат"
+from "Products" p ;
+
+--Задача 28
+select "prod_desc", overlay("prod_desc" placing 'YYY' from 4 for 6) 
+from "Products" p ;
+
+--Задача 29
+select "vend_city", position ('a' in "vend_city")  as "Позиция"
+from "Vendors" v ;
+
+--Задача 29(2 cпособ)
+select "vend_city", strpos( "vend_city", 'a')  as "Позиция"
+from "Vendors" v ;
+
+--Задача 30
+select "vend_address", position ('Str' in "vend_address")  as "Позиция"
+from "Vendors" v 
+order by "vend_address" asc;
+
+--Задача 30(2 способ)
+select "vend_address", strpos("vend_address", 'Str')  as "Позиция"
+from "Vendors" v 
+order by "vend_address" asc;
+
+--Задача 31
+select note_text, substring("note_text" from 13 for 22) as "Результат"
+from "Productnotes" p ;
+
+--Задача 31(2 способ)
+select note_text, substr("note_text", 13,22) as "Результат"
+from "Productnotes" p ;
+
+--Задача 32
+select substring(note_text from 1 for 22) as "Результат" 
+from "Productnotes" p ;
+
+--Задача 33
+select substring(note_text from -22 for 0) as "Результат" 
+from "Productnotes" p ;
+
+--Задача 34
+select right(note_text, 14) as "Результат" 
+from "Productnotes" p ;
+
+--Задача 35
+select right(note_text, -17) as "Результат"
+from "Productnotes" p ;
+
+--Задача 36
+select repeat(vend_name, 3) as "Повтор"
+from "Vendors" v ;
+
+--Задача 37
+select reverse(vend_name) as "Реверс" 
+from "Vendors" v ;
+
+--Задача 38
+select split_part(cust_email, '@', 1) as "Часть 1", split_part(cust_email, '@', 2) as "Часть 2" 
+from "Customers" c ;
+
+--Задача 39
+select split_part(cust_name, ' ', 1) as "Часть 1", split_part(cust_name, ' ', 2) as "Часть 2"
+from "Customers" c ;
+
+--Задача 40 
+select age('2022-10-23', '1812-08-03')
+
+--Задача 41
+select age(order_date) as "Интервал" 
+from "Orders" o ;
+
+--Задача 42
+select current_date;
+
+--Задача 42(2 cпособ)
+select current_timestamp :: date;
+
+--Задача 43
+select current_time;
+
+-- ЧАСТЬ 3
+
+--Задача 44
+select current_timestamp;
+
+--Задача 45
+select date_part('year', "order_date") as "Год"
+from "Orders" o ;
+
+--Задача 46
+select date_part('month', "order_date") as "Месяц"
+from "Orders" o ;
+
+--Задача 47
+select date_part('day', "order_date") as "День" 
+from "Orders" o
+
+--Задача 48
+select date_part('hours', timestamp '2020-06-30 02:36:24');
+
+--Задача 49
+select date_part('minutes', timestamp '2020-06-30 02:36:24');
+
+--Задача 50
+select date_part('seconds', timestamp '2020-06-30 02:36:24');
+
+--Задача 51
+select date_part('year', timestamp '2021-12-31 12:48:17') as "Год" , date_part ('month', timestamp '2021-12-31 12:48:17') as "Месяц" , date_part ('day', timestamp '2021-12-31 12:48:17') as "День" , date_part ('hours', timestamp '2021-12-31 12:48:17') as "Час" , date_part ('minutes', timestamp '2021-12-31 12:48:17') as "Минуты" , date_part ('seconds', timestamp '2021-12-31 12:48:17') as "Секунды";
+
+--Задача 52
+select order_date , age("order_date") as "Интервал" , date_part ('year' , age ("order_date")) as "Год" 
+from "Orders" o ;
+
+--Задача 53
+select order_date , age("order_date") as "Интервал" , date_part ('month' , age ("order_date")) as "Месяц"
+from "Orders" o ;
+
+--Задача 54
+select order_date , age(order_date) as "Интервал" , date_part ('day' , age ("order_date")) as "День"
+from "Orders" o ;
+
+--Задача 55
+select age(timestamp'1856-04-25 09:56:34') as "Интервал", date_part('hours', age(timestamp'1856-04-25 09:56:34')) as "Часы", date_part('minutes', age(timestamp'1856-04-25 09:56:34')) as "Минуты", date_part('seconds', age(timestamp'1856-04-25 09:56:34')) as "Секунды";
+
+--Задача 56
+select order_date, date_trunc('year' , order_date) as "Результат" 
+from "Orders" o ;
+
+--Задача 57
+select order_date, date_trunc('month' , order_date) as "Результат"
+from "Orders" o ;
+
+--Задача 58
+select order_date, date_trunc('day' , order_date) as "Результат" 
+from "Orders" o ;
+
+--Задача 59
+select date_trunc('hour' , timestamp'2015-05-26 16:36:42.258') as "Результат";
+
+--Задача 60
+select date_trunc('minutes' , timestamp'2015-05-26 16:36:42.258') as "Результат";
+
+--Задача 61
+select date_trunc('seconds' , timestamp'2015-05-26 16:36:42.258') as "Результат";
+
+--Задача 62
+select concat(note_id,'/', prod_id,'/', note_date) as "Результат" 
+from "Productnotes" p ;
+
+--Задача 62 (2 cпособ)
+select concat_ws('/', note_id, prod_id, note_date) as "Результат"
+from "Productnotes" p ;
+
+
+

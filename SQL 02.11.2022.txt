@@ -1,0 +1,216 @@
+1.
+create table Speciality (
+num varchar(30) primary key,
+"name" varchar(60) not null
+);
+
+2.
+create table "Course" (
+num varchar(30) primary key,
+"name" varchar(60) not null,
+year_entry int not null,
+year_final int,
+speciality varchar(30) not null,
+foreign key (speciality) references Speciality(num)
+);
+
+3.
+create table "Group" (
+num varchar(30) primary key,
+"name" varchar(60) not null,
+course varchar(30) not null
+);
+
+4.
+create table Discipline (
+num varchar(30) primary key,
+"name" varchar(60) not null
+);
+
+5.
+create table Account (
+num varchar(30) primary key,
+"name" varchar(30) not null
+);
+
+6.
+create table Mark (
+num varchar(30) primary key,
+"name" varchar(30) not null,
+value int not null
+);
+
+7.
+create table Status (
+num varchar(30) primary key,
+"name" varchar(60) not null
+);
+
+8.
+create table "Position" (
+num varchar(30) primary key,
+"name" varchar(60) not null
+);
+
+9.
+create table People (
+num varchar(30) primary key,
+last_name varchar(30) not null,
+first_name varchar(30) not null,
+middle_name varchar(30),
+gender char(1) not null,
+birth_day timestamp,
+address varchar(300)
+);
+
+10.
+create table Student (
+num varchar(30) primary key,
+people varchar(30) not null,
+foreign key (people) references People(num),
+"group" varchar(30) not null,
+foreign key ("group") references "Group"(num),
+stud_name varchar(30) not null,
+status varchar(30) not null
+); 
+
+11.
+create table Teacher (
+num varchar(30) primary key,
+people varchar(30) not null,
+foreign key (people) references People(num),
+"position" varchar(30) not null
+);
+
+12.
+create table SemesterResults (
+num varchar(30) primary key,
+student varchar(30) not null,
+foreign key (student) references Student(num),
+semester varchar(30) not null,
+account varchar(30) not null,
+foreign key (account) references Account(num),
+discipline varchar(30) not null,
+foreign key (discipline) references Discipline(num),
+teacher varchar(30) not null,
+foreign key (teacher) references Teacher(num),
+mark varchar(30) not null,
+foreign key (mark) references Mark(num),
+"date" timestamp not null
+);
+
+13.
+insert into speciality(num, "name")
+values
+('ИС', 'Информационные системы и программирование'),
+('П', 'Программирование'),
+('Ю', 'Юристы');
+
+14.
+insert into "Course" (num, "name", year_entry, year_final, speciality)
+values
+(1, 1, 2016, 2017, 'ИС'),
+(2, 2, 2017, 2018, 'ИС'),
+(3, 3, 2018, 2019, 'ИС'),
+(4, 4, 2019, 2020, 'ИС'),
+(5, 1, 2016, 2017, 'П'),
+(6, 2, 2017, 2018, 'П'),
+(7, 3, 2018, 2019, 'П'),
+(8, 4, 2019, 2020, 'П'),
+(9, 1, 2016, 2017, 'Ю'),
+(10, 2, 2017, 2018, 'Ю'),
+(11, 3, 2018, 2019, 'Ю'),
+(12, 4, 2019, 2020, 'Ю');
+
+15.
+insert into "Group"(num, "name", course)
+values (1, '1ПГ', 0001),
+(2, '1П', 2),
+(3, '1П', 3),
+(4, '1П', 4),
+(5, '2П', 2),
+(6, '2П', 3),
+(7, '2П', 4),
+(8, '2П', 2),
+(9, '1ИС', 3),
+(10, '1ИС', 4),
+(11, '1ИС', 2),
+(12, '1ИС', 3),
+(13, '1Ю', 4),
+(14, '1Ю', 2),
+(15, '1Ю', 3),
+(16, '1Ю', 4);
+
+16.
+insert into discipline(num, "name")
+values (0101, 'Физическая культура'),
+(0102, 'Физика'),
+(0103, 'Элементы высшей математики'),
+(0104, 'Русский язык'),
+(0105, 'Литература'),
+(0106, 'ОБЖ'),
+(0107, 'Информатика'),
+(0108, 'Иностранный язык');
+
+17.
+insert into account(num, "name")
+values (01, 'Экзамен'),
+(02, 'Зачёт'),
+(03, 'Дифференцированный зачёт'),
+(04, 'ДФПК');
+
+18.
+insert into mark(num, "name", value)
+values ('н', 'отсутствие',10),
+('ноль', 0,0),
+('кол', 1,1),
+('неуд', 2,2),
+('удовл', 3,3),
+('хор', 4,4),
+('отл', 5,5);
+
+19.
+insert into status(num, "name")
+values
+(1, 'обучается'),
+(2, 'отчислен'),
+(3, 'в академическом отпуске'),
+(4, 'в отпуске по уходу за ребёнком'),
+(5, 'выпускник');
+
+20.
+insert into "Position"(num, "name")
+values
+('асс', 'ассистент'),
+('стпр', 'старший преподаватель'),
+('пр', 'преподаватель'),
+('завотд', 'заведующий отделения'),
+('пцк', 'председатель цикловой комиссии');
+
+21.
+insert into people(num, last_name, first_name, middle_name, gender, birth_day, address)
+values (1234, 'Шлапаков', 'Даниил', 'Денисович', 'м', '21.07.1996 10:23:00', 'Софрино, ул. Тютчева, д. 9, кв. 48'),
+(2345, 'Семернов', 'Кирилл', 'Владимирович', 'м', '12.07.2000 06:00:00', 'Королёв, ул. Калинина, д. 14, кв. 118'),
+(3456, 'Сидорин', 'Сергей', 'Сергеевич', 'м', '09.04.1980 12:34:00', 'Ивантеевка, ул. Грибоедова, д. 2, кв. 107'),
+(4567, 'Мирная', 'Марина', 'Дмитриевна', 'ж', '28.12.2001 03:02:00', 'Красноармейск, ул. Средняя, д. 34, кв. 8'),
+(5678, 'Чичиков', 'Евгений', 'Александрович', 'м', '01.11.2002 16:15:00', 'Щёлково, ул. Карла Маркса, д. 1, кв. 36');
+
+22.
+insert into student(num, people, "group", stud_name, status)
+values (1337, 2345, 3, 'Ю1-16-168', 1),
+(1488, 4567, 9, 'ИС1-16-238', 2),
+(22869, 5678, 5, '2П-16-23', 1);
+
+23.
+insert into teacher(num, people, "position")
+values (7331, 01234, 'асс'),
+(8841, 03456, 'пр');
+
+24.
+insert into semesterresults(num, student, semester, account, discipline, teacher, mark, "date")
+values (1111, 1337, 3, 01, 0107, 7331, 'отл', '25.06.2017 09:30:00'),
+(1112, 1337, 3, 01, 0103, 8841, 'отл', '29.06.2017 09:30:00'),
+(2221, 1488, 3, 01, 0107, 7331, 'хор', '25.06.2017 09:30:00'),
+(2222, 1488, 3, 01, 0103, 8841, 'удовл', '29.06.2017 09:30:00'),
+(3331, 22869, 3, 01, 0107, 7331, 'неуд', '25.06.2017 09:30:00'),
+(3332, 22869, 3, 01, 0103, 8841, 'хор', '29.06.2017 09:30:00');
